@@ -172,6 +172,9 @@ $ docker-compose up -d --build                                                  
 
 NOTE:  Ensure the docker deamon is active before using any docker command
 
+TROUBLESHOOTING : If the App container doesn't properly launch because is does not find the entrypoint.sh simply recreate this file with all of its content and delete the original.
+This happens because Git try to convert shell files. 
+
 
 ## C. Creating the production Database
 
