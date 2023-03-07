@@ -1,7 +1,7 @@
 version: '3.7'
 
 services:
-  flask_gunicorn:
+  app:
     restart: always
     build:
       context: .
@@ -17,7 +17,7 @@ services:
     ports:
       - "80:80"
     depends_on:
-      - flask_gunicorn
+      - app
   
   db:
     image: postgres:13-alpine
