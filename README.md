@@ -1,4 +1,4 @@
-### FRPD - FLASK-REACT-POSTRGRES-DOCKER TEMPLATE
+# FRPD - FLASK-REACT-POSTRGRES-DOCKER TEMPLATE
 
 This template has been created as a tool to speed up the process of creation and hosting of a fullstack app.
 
@@ -33,17 +33,23 @@ The fist step after downloading this template is to setup at the root directory 
 
 The content of this file should be as follows:
 
-# Flask variables
+### Flask variables
 FLASK_APP=backend/app.py
 FLASK_DEBUG=1
 
-# Database variables
+### Database variables
 SQL_HOST=db             #This refers the the name of the container hosting the db - should remain unchanged
+
 SQL_PORT=5432               #The port on which you access the DB - should remain unchanged
+
 DATABASE=postgres               #The database management system - should remain unchanged 
+
 POSTGRES_USER=username              # Change this
+
 POSTGRES_PASSWORD=password              #Change this
+
 POSTGRES_DB=db_name                 #Change this         
+
 DATABASE_URL=postgresql://username:password@db:5432/db_name             #Change this accordingly
 
 
@@ -56,7 +62,7 @@ Upon downloading this template from github follow these steps to deploy the devl
 
 ## A. Packages installation
 
-# A.1 - Python environment and packages setup
+### A.1 - Python environment and packages setup
 
 It is highly recommended to use this app in a virtual environement to ensure a proper python dependency management :
 
@@ -73,7 +79,7 @@ TROUBLESHOOTING : If this command fails and throws a python version error this m
     => Modify the pipfile python version to match the version of your python installation (however setting this version to 3.9 or lower may break the program built with python 3.10)
     => Install the required python version 
 
-# A.2 - NPM packages setup
+### A.2 - NPM packages setup
 
 All javascript dependencies are listed in the package.json file in the frontend folder.
 
@@ -85,7 +91,7 @@ $ npn install                                                                   
 
 ## B - Launching the developpement environement
 
-# B.1 - Flask
+### B.1 - Flask
 
 To launch the Flask web server be sure to have the virtual environment up and running then naviguate in root directory of the app and use the command :
 
@@ -95,7 +101,7 @@ This command will launch the python server that will be avaiblable at the follow
 
 NOTE : Flask is configured to serve the React UI on the root address (127.0.0.1:5000/) from its staticfiles folder. However this requires to generate a build version of the react app. Without a live build the root adress (127.0.0.1:5000) leads to nothing. To generate React live build refer to the next section of this manual.
 
-# B.2 - React
+### B.2 - React
 
 To launch the react devlopment environment simply use the following command in the frontend directory :
 
@@ -132,14 +138,14 @@ If succesfull a db.sqlite file will be created in the backend folder.
 
 ## UPDATING DEPENDENCIES
 
-# A. Python dependencies
+### A. Python dependencies
 
 If you wish to install new Python dependencies this requirement.txt file will NOT update itself automatically to update it use the following command :
 
 $ pip freeze > requirement.txt                                                                                                                                          ...$
 
 
-# B. Node dependencies
+### B. Node dependencies
 
 The package.json update itself automatically when new dependencies are installed.
 
@@ -149,7 +155,7 @@ The package.json update itself automatically when new dependencies are installed
 
 Ensure that the .env file has been duly created before attempting to launch a production environment 
 
-# A. Creating a react live build
+## A. Creating a react live build
 
 To create a React build open a terminal in the frontend folder and run the following commands :
 
@@ -158,7 +164,7 @@ $ npm run build                                                                 
 
 This command will generate a build folder in the frontend server containing static files.
 
-# B. Launching the containers
+## B. Launching the containers
 
 To launch the app open a terminal in the root folder of the app and run the following command :
 
@@ -167,7 +173,7 @@ $ docker-compose up -d --build                                                  
 NOTE:  Ensure the docker deamon is active before using any docker command
 
 
-# C. Creating the production Database
+## C. Creating the production Database
 
 To create the database open a terminal in the root folder of the app and run the following command :
 
@@ -177,7 +183,7 @@ This command will run the create_db command of the manage.py file inside the run
 Please note that once the DB has been created it will persist in the docker volume "postgres_data".
 The "create_DB" command need to be launched only once! Using it again will re-create the DB wiping all previously saved data.
 
-# D. Taking down all containers
+## D. Taking down all containers
 
 To take down the app open a terminal in the root folder of the app and run the following command :
 
