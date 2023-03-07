@@ -23,10 +23,8 @@ services:
     image: postgres:13-alpine
     volumes:
       - postgres_data:/var/lib/postgresql/data/
-    environment:
-      - POSTGRES_USER=test_user
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=dev_db
+    env_file:
+      - ./.env
 
 volumes:
   static:

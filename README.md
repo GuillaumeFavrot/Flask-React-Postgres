@@ -1,16 +1,22 @@
-# FLASK-REACT (Docker edition)
+### FRPD - FLASK-REACT-POSTRGRES-DOCKER TEMPLATE
 
 This template has been created as a tool to speed up the process of creation and hosting of a fullstack app.
 
-DISCLAIMER : THIS TEMPLATE HAS BEEN CREATED FOR PERSONNAL USE AS A SIDE PROJECT IT DOES NOT NECESSERILY FEATURES THE BEST DEVLOPMENT PRACTICES. ITS ONLY GOAL IS TO PROVIDE SOME BOILERPLATE CODE FOR A FAST DEPLOYMENT OF A SIMPLE FULLSTACK APP.
+
+
+## Stack description
+
+Frontend - React, Redux, Bootstrap
+
+Backend - Flask, SQLAlchemy, Gunicorn, Nginx
+
+Database - PostgreSQL (Production DB) / SQlite (Development DB)
+
+Other - Docker
 
 
 
-# TEMPLATE SETUP PROCEDURE
-
-This setup procedure is suitable for a freshly cloned folder (from git) on a fresh machine.
-
-REQUIREMENTS :
+## Requirements
 
 => PYTHON 3.10.4 OR LATER ;
 
@@ -18,97 +24,119 @@ REQUIREMENTS :
 
 => NPM 8.15.0 OR LATER ;
 
-All other required packages and dependencies will be installed during the setup process. You'll find the full list of required packages in the requirement.txt and package.json files.
+All other required packages and dependencies are installed during the setup process. 
+You'll find the full list of required packages in the requirement.txt and package.json files.
+
+## Creation of the .env file
+
+The fist step after downloading this template is to setup at the root directory of the app the .env file
+
+The content of this file should be as follows:
+
+# Flask variables
+FLASK_APP=backend/app.py
+FLASK_DEBUG=1
+
+# Database variables
+SQL_HOST=db             #This refers the the name of the container hosting the db - should remain unchanged
+SQL_PORT=5432               #The port on which you access the DB - should remain unchanged
+DATABASE=postgres               #The database management system - should remain unchanged 
+POSTGRES_USER=username              # Change this
+POSTGRES_PASSWORD=password              #Change this
+POSTGRES_DB=db_name                 #Change this         
+DATABASE_URL=postgresql://username:password@db:5432/db_name             #Change this accordingly
 
 
 
-# A - Environement setup
+## DEVLOPMENT ENVIRONMENT SETUP
 
-Upon downloading of this template the first step is to ensure the correct environment is set up.
+Upon downloading this template from github follow these steps to deploy the devlopment environment.
 
 
-A.1 - Flask environement setup
+
+## A. Packages installation
+
+# A.1 - Python environment and packages setup
 
 It is highly recommended to use this app in a virtual environement to ensure a proper python dependency management :
 
-=> Go in the main app directory and run the command :
+=> Open a terminal in the main app directory and run these commands to launch a virtual environment :
 
 $ pip3 install pipenv       (if not already installed)
-
 $ pipenv shell
 
-=>Then all the packages the project needs to work have to be installed. The list of theses packages resides in the requirement.txt file (or Pifile see note). To install all packages from the requirement.txt file use the command :
+=> Then all required python packages need to be installed. Theses packages in the requirement.txt file. To install all packages from the requirement.txt file use the command :
 
-$ pipenv install -r ./requirements.txt
+$ pipenv install -r ./requirements.txt                                                                                                                                   ...$
 
+TROUBLESHOOTING : If this command fails and throws a python version error this means your python version differs from the version defined in the pipfile. To troubleshoot this error :
+    => Modify the pipfile python version to match the version of your python installation (however setting this version to 3.9 or lower may break the program built with python 3.10)
+    => Install the required python version 
 
-A.2 - Javascript environement setup
+# A.2 - NPM packages setup
 
 All javascript dependencies are listed in the package.json file in the frontend folder.
 
-=>To install all javascript dependencies, navigate to the frontend directory and run the command :
+=> To install all javascript dependencies, navigate to the frontend directory and run the following command :
     
-$ npn install
-
-This command will install all dependencies listed in the package.json file
+$ npn install                                                                                                                                                            ...$
 
 
 
-# B - Launching the developpement environement
+## B - Launching the developpement environement
 
-Both Django and React have their own develpmentevironement that need to be launched in order tu run the code.
+# B.1 - Flask
 
+To launch the Flask web server be sure to have the virtual environment up and running then naviguate in root directory of the app and use the command :
 
-B.1 - Flask
+$ python3 manage.py run                                                                                                                                                  ...$
 
-=> (Option 1) Flask developement server 
+This command will launch the python server that will be avaiblable at the following address (local) : 127.0.0.1:5000 or localhost:5000
 
-To launch the Flask web server be sure to have the virtual environment up and running then naviguate in the backend directory and use the command :
+NOTE : Flask is configured to serve the React UI on the root address (127.0.0.1:5000/) from its staticfiles folder. However this requires to generate a build version of the react app. Without a live build the root adress (127.0.0.1:5000) leads to nothing. To generate React live build refer to the next section of this manual.
 
-$ python3 server.py
-
-This command will launch the python server that will be avaiblable at the following address (local) : 127.0.0.1:5000
-
-In this template Flask is configured to serve the React app on the root address however this features requires to generate a live build. Without a live build the root adress (127.0.0.1:8000) leads to nothing. If you want to generate a live build manually, refer to the "manual live build" section of this document.
-
-=> (Option 2) Gunicorn production server  
-
-Although gunicorn will be used as a production server it is possible to use it instead of the stock Flask dev server.
-
-To launch the gunicorn server for production use the following command in the backend directory of the app :
-
-$ gunicorn wsgi:app --bind 0.0.0.0:8000
-
-
-B.2 - React
+# B.2 - React
 
 To launch the react devlopment environment simply use the following command in the frontend directory :
 
-npm start
+$ npm start                                                                                                                                                           
 
-The React development environement has it's own webserver accessible at the address :
+The React development environement has it's own webserver accessible at the address : localhost:3000
 
-localhost:3000
+The React frontend accessible on the port 3000 can interract with the backend available on the port 5000 but this requires to enable the CORS. 
+The CORS is enabled by default in the app.py file of the backend folder when a devlopment environment is launched.
 
-In this template Flask is configured to serve the React app on its root address however this require a live build. While on a development build use the localhost address.
+As said previously, Flask is configured to serve the React app on its root address however this require a React build.
+To create a React build open a terminal in the frontend folder and run the following command :
+
+$ npm run build
+
+This command will generate a build folder in the frontend server containing static files. Those files will now be served by the flask server on its root address
 
 
-# C - Creation of the .env file
+## D - Creation of the devlopment database
 
-WIP 
+This template runs with 2 databases :
+    => One for devlopment and testing purposes : SQlite
+    => One for production purposes : PostgreSQL
+
+The Postgres DB requires a running Postgres container on the same network as the app to work. When using the Flask and React devlopment environments those requirements are NOT met hence the second SQLite DB.
+
+To create the Sqlite DB open a terminal in the root folder of the app and run the following command :
+
+$ python manage.py create_db                                                                                                                                            ...$
+
+If succesfull a db.sqlite file will be created in the backend folder.
 
 
-# D - Creation of the database
 
-$ docker-compose exec app python manage.py create_db     ...$
-
-# UPDATING DEPENDENCIES
+## UPDATING DEPENDENCIES
 
 # A. Python dependencies
 
 If you wish to install new Python dependencies this requirement.txt file will NOT update itself automatically to update it use the following command :
 
-$ pip freeze > requirement.txt
+$ pip freeze > requirement.txt                                                                                                                                          ...$
 
 
 # B. Node dependencies
@@ -116,37 +144,41 @@ $ pip freeze > requirement.txt
 The package.json update itself automatically when new dependencies are installed.
 
 
-# DESCRIPTION OF THE MAIN COMPONENTS OF THE APP
 
-WIP
+### PRODUCTION ENVIRONEMENT SETUP
 
-# DOCKER IMAGE BUILDING PROCEDURE
+Ensure that the .env file has been duly created before attempting to launch a production environment 
 
 # A. Creating a react live build
 
-Generating a manual live build is quite straight forward :
-=> The first step requires to naviguate with the console in the frontend directory and run the command :
+To create a React build open a terminal in the frontend folder and run the following commands :
 
-$ npm run build
+$ npm install
+$ npm run build                                                                                                                                                         ...$
 
-This command will bundle all the react code into static files and store them into a "build" folder in the root  directory.
+This command will generate a build folder in the frontend server containing static files.
 
-The Flask app is setup to serve the index.html file and all other static file from the build folder on its root address.
+# B. Launching the containers
+
+To launch the app open a terminal in the root folder of the app and run the following command :
+
+$ docker-compose up -d --build                                                                                                                                          ...$
+
+NOTE:  Ensure the docker deamon is active before using any docker command
 
 
-# B. Updating the dockerfile
+# C. Creating the production Database
 
-In order to move to a developpement build it's necessary to transfer the ENV variables to the container.
+To create the database open a terminal in the root folder of the app and run the following command :
 
-WIP
+$ docker-compose exec app python manage.py create_db                                                                                                                    ...$
 
+This command will run the create_db command of the manage.py file inside the running container. 
+Please note that once the DB has been created it will persist in the docker volume "postgres_data".
+The "create_DB" command need to be launched only once! Using it again will re-create the DB wiping all previously saved data.
 
-# C. Building and running the image
+# D. Taking down all containers
 
-The app is composed of two containers. The main app container and the nginx container. To launch both containers concurrently use the following command :
+To take down the app open a terminal in the root folder of the app and run the following command :
 
-$ docker-compose up -d
-
-To bring the app down use this command :
-
-$ docker-compose down 
+$ docker-compose down                
