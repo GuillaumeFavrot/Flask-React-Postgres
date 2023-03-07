@@ -5,3 +5,4 @@ frontend/src
 .env
 *.json
 README.md
+backend/db.sqlite
