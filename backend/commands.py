@@ -1,7 +1,7 @@
 #!/bin/python
 
-from exts import db
-from app import app
+from backend.exts import db
+from backend.app import app
 
 def create_all ():
     with app.app_context():

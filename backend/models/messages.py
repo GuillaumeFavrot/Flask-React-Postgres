@@ -1,6 +1,7 @@
 #!/bin/python
 
-from exts import db
+from backend.exts import db
+#from backend.app import db
 
 class Message(db.Model):
     _id = db.Column(db.Integer, primary_key=True)

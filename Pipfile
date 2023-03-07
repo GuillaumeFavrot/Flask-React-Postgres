@@ -26,6 +26,7 @@ six = "*"
 sqlalchemy = "*"
 flask-cors = "*"
 python-dotenv = "*"
+psycopg2 = "*"
 
 [dev-packages]
 

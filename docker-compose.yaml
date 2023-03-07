@@ -5,8 +5,11 @@ services:
     restart: always
     build:
       context: .
+    command: gunicorn --bind 0.0.0.0:5000 manage:app
     ports:
-      - "8000:8000"
+      - "5000:5000"
+    env_file:
+      - ./.env
 
   nginx:
     restart: always
@@ -27,4 +30,4 @@ services:
 
 volumes:
   static:
-  postgres_data:
+  postgres_data: {}

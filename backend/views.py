@@ -1,10 +1,10 @@
 #!/bin/python
 
 from flask import Blueprint, send_from_directory, request
-from exts import db
-from models.messages import Message
-from schemas.messageSchema import messages_schema
-import config
+from backend.exts import db
+from backend.models.messages import Message
+from backend.schemas.messageSchema import messages_schema
+import backend.config as config
 
 #Creation of the blueprint
 

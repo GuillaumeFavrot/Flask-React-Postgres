@@ -20,8 +20,5 @@ COPY . .
 # install dependencies
 RUN pip3 install -r ./requirements.txt
 
-# set a new workdir
-WORKDIR /app/backend
-
-# runs the app
-CMD [ "gunicorn", "--bind", "0.0.0.0:8000", "wsgi:app"]
+# run entrypoint.sh
+ENTRYPOINT ["/app/entrypoint.sh"]
