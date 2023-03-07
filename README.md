@@ -98,6 +98,10 @@ In this template Flask is configured to serve the React app on its root address 
 WIP 
 
 
+# D - Creation of the database
+
+$ docker-compose exec app python manage.py create_db     ...$
+
 # UPDATING DEPENDENCIES
 
 # A. Python dependencies

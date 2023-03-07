@@ -8,6 +8,7 @@ from flask.cli import FlaskGroup
 from backend.app import app
 from backend.exts import db
 
+import os
 
 cli = FlaskGroup(app)
 

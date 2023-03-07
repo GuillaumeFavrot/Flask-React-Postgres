@@ -19,7 +19,7 @@ let url = ''
   // However in development React runs on its own server so we have to specify the address (the Django server address) where requests have to be sent.
   // This section is generic and does not have to be modified. 
 if(process.env.NODE_ENV === 'development') {
-  url = 'http://127.0.0.1:8000'
+  url = 'http://127.0.0.1:5000'
 }
 
 const api = axios.create({
