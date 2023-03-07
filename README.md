@@ -66,12 +66,12 @@ Upon downloading this template from github follow these steps to deploy the devl
 
 It is highly recommended to use this app in a virtual environement to ensure a proper python dependency management :
 
-=> Open a terminal in the main app directory and run these commands to launch a virtual environment :
+Open a terminal in the main app directory and run these commands to launch a virtual environment :
 
 $ pip3 install pipenv       (if not already installed)
 $ pipenv shell
 
-=> Then all required python packages need to be installed. Theses packages in the requirement.txt file. To install all packages from the requirement.txt file use the command :
+Then all required python packages need to be installed. Theses packages in the requirement.txt file. To install all packages from the requirement.txt file use the command :
 
 $ pipenv install -r ./requirements.txt                                                                                                                                   ...$
 
@@ -83,7 +83,7 @@ TROUBLESHOOTING : If this command fails and throws a python version error this m
 
 All javascript dependencies are listed in the package.json file in the frontend folder.
 
-=> To install all javascript dependencies, navigate to the frontend directory and run the following command :
+To install all javascript dependencies, navigate to the frontend directory and run the following command :
     
 $ npn install                                                                                                                                                            ...$
 
